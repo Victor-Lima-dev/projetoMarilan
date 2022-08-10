@@ -44,13 +44,14 @@ function confereTurno() {
         
     }
     else {
-        console.log("chegou aqui")
+        
         relatorioFeito = true
         for (var i = contadorItem.length - 1; i >= 0; i--) {
             contadorItem[i].remove()
         }
         gerarTurno()
         gerarTurnoReal()
+        
     }
 }
 
@@ -74,18 +75,54 @@ function gerarTurno() {
 function gerarTurnoReal() {
     relatorioFeito = true
     for (let i = 1; i < 9; i++) {
-        registroH = produtividadePM(eVelocidadeMinutoT.value)
-
-        item = document.createElement("li")
-        item.classList = "listaHora"
-        textoItem = document.createTextNode("Hora" + " " + i + " " + registroH)
-        item.appendChild(textoItem)
-        ehistoricoProducaoReal.appendChild(item)
-        
-        registroH = 0
+        gerarParada()
+        checarParada()
     }
     contadorItem = document.querySelectorAll(".listaHora")
 }
 
 
-// gerar um evento de parada que vai fazer com que a produção daquela hora seja descartada
+let parada = 0
+let parou = false
+
+function gerarParada()
+{
+    parada = Math.floor(Math.random() * 2 + 1)
+        console.log(parada)    
+       
+        if (parada > 1)
+        {
+            console.log("parou")
+            parou = true
+        }
+        else
+        {
+            console.log("Segue o jogo")
+            parou = false
+        }
+}
+
+function checarParada()
+{
+    if (parou === true)
+    {
+        registroH = 0
+        gerarLista()
+    }
+    else
+    {
+        registroH = produtividadePM(eVelocidadeMinutoT.value)
+        gerarLista()
+    }
+}
+
+function gerarLista()
+{
+    item = document.createElement("li")
+        item.classList = "listaHora"
+        textoItem = document.createTextNode(registroH)
+        item.appendChild(textoItem)
+        ehistoricoProducaoReal.appendChild(item)
+        
+        registroH = 0
+}
