@@ -5,6 +5,8 @@ const ehistoricoProducao = document.querySelector(".historicoProducao")
 const ehistoricoProducaoReal = document.querySelector(".historicoProducaoReal")
 const eproducaoDia = document.querySelector(".producaoDia")
 const eproducaoDiaReal = document.querySelector(".producaoDiaReal")
+const eproducaoRelativa = document.querySelector(".producaoRelativa")
+
 
 let somaTurno = 0
 let somaTurnoReal = 0
@@ -43,9 +45,10 @@ function mudancaPH() {
 
 function confereTurno() {
     if (relatorioFeito === false) {
-        gerarTurnoReal()
         gerarTurno()
-
+        gerarTurnoReal()
+        gerarProdutividadeRelativa()
+        
     }
     else {
 
@@ -55,7 +58,7 @@ function confereTurno() {
         }
         gerarTurno()
         gerarTurnoReal()
-
+        gerarProdutividadeRelativa()
     }
 }
 
@@ -77,7 +80,7 @@ function gerarTurno() {
         registroH = 0
     }
     contadorItem = document.querySelectorAll(".listaHora")
-    somaTurno = 0
+    
 }
 
 
@@ -88,7 +91,7 @@ function gerarTurnoReal() {
         checarParada()
     }
     contadorItem = document.querySelectorAll(".listaHora")
-    somaTurnoReal = 0
+    
 }
 
 
@@ -132,4 +135,14 @@ function gerarLista() {
     ehistoricoProducaoReal.appendChild(item)
 
     registroH = 0
+}
+
+let producaoRelativa = 0
+
+function gerarProdutividadeRelativa()
+{
+    producaoRelativa = somaTurnoReal / somaTurno
+    eproducaoRelativa.textContent = producaoRelativa
+    somaTurno = 0
+    somaTurnoReal = 0
 }
