@@ -3,7 +3,11 @@ const eVelocidadeHoraT = document.querySelector("#mVelocidadeHoraT")
 const ebtnGerarTurno = document.querySelector("#btnGerarTurno")
 const ehistoricoProducao = document.querySelector(".historicoProducao")
 const ehistoricoProducaoReal = document.querySelector(".historicoProducaoReal")
+const eproducaoDia = document.querySelector(".producaoDia")
+const eproducaoDiaReal = document.querySelector(".producaoDiaReal")
 
+let somaTurno = 0
+let somaTurnoReal = 0
 let item
 let contadorItem
 let contadorItemArray
@@ -41,17 +45,17 @@ function confereTurno() {
     if (relatorioFeito === false) {
         gerarTurnoReal()
         gerarTurno()
-        
+
     }
     else {
-        
+
         relatorioFeito = true
         for (var i = contadorItem.length - 1; i >= 0; i--) {
             contadorItem[i].remove()
         }
         gerarTurno()
         gerarTurnoReal()
-        
+
     }
 }
 
@@ -60,15 +64,20 @@ function gerarTurno() {
     for (let i = 0; i < 8; i++) {
         registroH = produtividadePM(eVelocidadeMinutoT.value)
 
+        somaTurno += registroH
+        eproducaoDia.textContent = somaTurno
+
         item = document.createElement("li")
         item.classList = "listaHora"
         textoItem = document.createTextNode("Hora" + " " + i + " " + registroH)
         item.appendChild(textoItem)
         ehistoricoProducao.appendChild(item)
-        
+
+
         registroH = 0
     }
     contadorItem = document.querySelectorAll(".listaHora")
+    somaTurno = 0
 }
 
 
@@ -79,50 +88,48 @@ function gerarTurnoReal() {
         checarParada()
     }
     contadorItem = document.querySelectorAll(".listaHora")
+    somaTurnoReal = 0
 }
 
 
 let parada = 0
 let parou = false
 
-function gerarParada()
-{
+function gerarParada() {
     parada = Math.floor(Math.random() * 2 + 1)
-        console.log(parada)    
-       
-        if (parada > 1)
-        {
-            console.log("parou")
-            parou = true
-        }
-        else
-        {
-            console.log("Segue o jogo")
-            parou = false
-        }
+    console.log(parada)
+
+    if (parada > 1) {
+        console.log("parou")
+        parou = true
+    }
+    else {
+        console.log("Segue o jogo")
+        parou = false
+    }
 }
 
-function checarParada()
-{
-    if (parou === true)
-    {
+function checarParada() {
+    if (parou === true) {
         registroH = 0
         gerarLista()
     }
-    else
-    {
+    else {
         registroH = produtividadePM(eVelocidadeMinutoT.value)
         gerarLista()
     }
 }
 
-function gerarLista()
-{
+function gerarLista() {
+
+    somaTurnoReal += registroH
+    eproducaoDiaReal.textContent = somaTurnoReal
+
     item = document.createElement("li")
-        item.classList = "listaHora"
-        textoItem = document.createTextNode(registroH)
-        item.appendChild(textoItem)
-        ehistoricoProducaoReal.appendChild(item)
-        
-        registroH = 0
+    item.classList = "listaHora"
+    textoItem = document.createTextNode(registroH)
+    item.appendChild(textoItem)
+    ehistoricoProducaoReal.appendChild(item)
+
+    registroH = 0
 }
