@@ -72,7 +72,7 @@ function gerarTurno() {
 
         item = document.createElement("li")
         item.classList = "listaHora"
-        textoItem = document.createTextNode("Hora" + " " + i + " " + registroH)
+        textoItem = document.createTextNode(registroH)
         item.appendChild(textoItem)
         ehistoricoProducao.appendChild(item)
 
