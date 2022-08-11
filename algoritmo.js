@@ -6,7 +6,7 @@ const ehistoricoProducaoReal = document.querySelector(".historicoProducaoReal")
 const eproducaoDia = document.querySelector(".producaoDia")
 const eproducaoDiaReal = document.querySelector(".producaoDiaReal")
 const eproducaoRelativa = document.querySelector(".producaoRelativa")
-
+const eMeta = document.querySelector(".meta")
 
 let somaTurno = 0
 let somaTurnoReal = 0
@@ -48,7 +48,8 @@ function confereTurno() {
         gerarTurno()
         gerarTurnoReal()
         gerarProdutividadeRelativa()
-        
+
+
     }
     else {
 
@@ -80,7 +81,7 @@ function gerarTurno() {
         registroH = 0
     }
     contadorItem = document.querySelectorAll(".listaHora")
-    
+
 }
 
 
@@ -91,7 +92,7 @@ function gerarTurnoReal() {
         checarParada()
     }
     contadorItem = document.querySelectorAll(".listaHora")
-    
+
 }
 
 
@@ -100,7 +101,7 @@ let parou = false
 
 function gerarParada() {
     parada = Math.floor(Math.random() * 2 + 1)
-    console.log(parada)
+
 
     if (parada > 1) {
         console.log("parou")
@@ -114,14 +115,22 @@ function gerarParada() {
 
 function checarParada() {
     if (parou === true) {
-        registroH = 0
+        registroH = produtividadePM(eVelocidadeMinutoT.value) / 4
         gerarLista()
     }
     else {
-        registroH = produtividadePM(eVelocidadeMinutoT.value)
+        registroH = produtividadePM(eVelocidadeMinutoT.value) * 0.9
         gerarLista()
     }
+
 }
+
+let coeficiente = 0
+function gerarCoeficienteEficiencia() {
+    coeficiente = Math.random() 
+    console.log(coeficiente)
+}
+
 
 function gerarLista() {
 
@@ -139,10 +148,22 @@ function gerarLista() {
 
 let producaoRelativa = 0
 
-function gerarProdutividadeRelativa()
-{
+function gerarProdutividadeRelativa() {
     producaoRelativa = somaTurnoReal / somaTurno
     eproducaoRelativa.textContent = producaoRelativa
     somaTurno = 0
     somaTurnoReal = 0
+    metaConfere()
+}
+
+function metaConfere()
+{
+    if (producaoRelativa >= eMeta.value)
+    {
+        eproducaoRelativa.classList = "green"
+    }
+    else
+    {
+        eproducaoRelativa.classList = "red"
+    }
 }
