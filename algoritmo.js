@@ -71,6 +71,8 @@ function gerarTurno() {
         somaTurno += registroH
         eproducaoDia.textContent = somaTurno
 
+        interA = registroH
+
         item = document.createElement("li")
         item.classList = "listaHora"
         textoItem = document.createTextNode(registroH)
@@ -90,6 +92,7 @@ function gerarTurnoReal() {
     for (let i = 1; i < 9; i++) {
         gerarParada()
         checarParada()
+      
     }
     contadorItem = document.querySelectorAll(".listaHora")
 
@@ -114,8 +117,10 @@ function gerarParada() {
 }
 
 function checarParada() {
+    gerarCoeficienteEficiencia()
     if (parou === true) {
-        registroH = produtividadePM(eVelocidadeMinutoT.value) / 4
+        
+        registroH = produtividadePM(eVelocidadeMinutoT.value) * coeficiente
         gerarLista()
     }
     else {
@@ -127,7 +132,7 @@ function checarParada() {
 
 let coeficiente = 0
 function gerarCoeficienteEficiencia() {
-    coeficiente = Math.random() 
+    coeficiente = Math.random()
     console.log(coeficiente)
 }
 
@@ -136,6 +141,8 @@ function gerarLista() {
 
     somaTurnoReal += registroH
     eproducaoDiaReal.textContent = somaTurnoReal
+
+    interB = registroH
 
     item = document.createElement("li")
     item.classList = "listaHora"
