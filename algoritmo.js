@@ -117,8 +117,8 @@ function gerarParada() {
 }
 
 function checarParada() {
-    gerarCoeficienteEficiencia()
     if (parou === true) {
+        gerarCoeficienteEficiencia()
         
         registroH = produtividadePM(eVelocidadeMinutoT.value) * coeficiente
         gerarLista()
@@ -132,8 +132,7 @@ function checarParada() {
 
 let coeficiente = 0
 function gerarCoeficienteEficiencia() {
-    coeficiente = Math.random()
-    console.log(coeficiente)
+    coeficiente = Math.random().toFixed(2)
 }
 
 
