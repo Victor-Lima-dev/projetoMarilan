@@ -164,7 +164,7 @@ function gerarProdutividadeRelativa() {
 
 function metaConfere()
 {
-    if (producaoRelativa >= eMeta.value)
+    if (producaoRelativa >= eMeta.value / 100)
     {
         eproducaoRelativa.classList = "green"
     }
