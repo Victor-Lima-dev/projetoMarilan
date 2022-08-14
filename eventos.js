@@ -3,4 +3,4 @@ eVelocidadeMinutoT.addEventListener("change", mudancaPM)
 eVelocidadeHoraT.addEventListener("change", mudancaPH)
 
 //Evento que gera o historico de producao
-ebtnGerarTurno.addEventListener("click", confereTurno)
+ebtnGerarTurno.addEventListener("click", verificacao)
