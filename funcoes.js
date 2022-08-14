@@ -173,3 +173,14 @@ function metaConfere()
         
     }
 
+function verificaInputs()
+{
+    if (!eMeta.value === true || !eVelocidadeHoraT.value === true || !eVelocidadeMinutoT. value === true)
+    {
+        alert("Preencha Todos os campos")
+    }
+    else
+    {
+        verificacao()
+    }
+}
