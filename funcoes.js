@@ -147,3 +147,21 @@ function metaConfere()
         eproducaoRelativa.classList = "red"
     }
 }
+
+    //funcao de verificaçao, caso relatorio feito for true ele vai apagar a lista
+    function verificacao()
+    {
+        if(relatorioFeito === true)
+        {
+            for (var i = contadorItem.length - 1; i >= 0; i--) {
+                contadorItem[i].remove()
+            }
+        relatorioFeito = false
+        confereTurno()
+        }
+        else
+        {
+            confereTurno()
+        }
+        
+    }
