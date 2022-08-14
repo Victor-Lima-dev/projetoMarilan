@@ -29,11 +29,11 @@ function gerarTurno() {
         registroH = produtividadePM(eVelocidadeMinutoT.value)
 
         somaTurno += registroH
-        eproducaoDia.textContent = somaTurno
+        eproducaoDia.textContent = "Total do turno " +somaTurno
 
         item = document.createElement("li")
         item.classList = "listaHora"
-        textoItem = document.createTextNode(registroH)
+        textoItem = document.createTextNode(i+1git + " " + "Horas " + registroH + " Pacotes")
         item.appendChild(textoItem)
         ehistoricoProducao.appendChild(item)
 
@@ -47,12 +47,14 @@ function gerarTurno() {
 // Função que gera dados com simulação de paradas, portanto ela dispara o gerar parada
 // também dispara o checarParada que vai verificar a parada e rodar o coeficiente de parada
 // por fim ele vai gerar a lista com os dados modificados pelo coeficiente
+let h = 0
 function gerarTurnoReal() {
     relatorioFeito = true
     for (let i = 1; i < 9; i++) {
         gerarParada()
+        h = i
         checarParada()
-      
+        h = 0
     }
     //Essa variavel é utilizada na hora de verificar se já existe uma lista ou não, caso
     // exista a propriedade letngh será >1, portanto será preciso limpar esses campos
@@ -106,14 +108,14 @@ function gerarCoeficienteEficiencia() {
 function gerarLista() {
 
     somaTurnoReal += registroH
-    eproducaoDiaReal.textContent = somaTurnoReal
+    eproducaoDiaReal.textContent = "Total do turno " + somaTurnoReal
 
     interB = registroH
 
     //Rotina de Criação de um elemento que também coloca uma classe nele
     item = document.createElement("li")
     item.classList = "listaHora"
-    textoItem = document.createTextNode(registroH)
+    textoItem = document.createTextNode((h + " " + "Horas " + registroH + " Pacotes"))
     item.appendChild(textoItem)
     ehistoricoProducaoReal.appendChild(item)
 
@@ -126,7 +128,6 @@ function gerarLista() {
 let producaoRelativa = 0
 function gerarProdutividadeRelativa() {
     producaoRelativa = somaTurnoReal / somaTurno
-    eproducaoRelativa.textContent = producaoRelativa
     somaTurno = 0
     somaTurnoReal = 0
     metaConfere()
@@ -140,11 +141,17 @@ function metaConfere()
 {
     if (producaoRelativa >= eMeta.value / 100)
     {
+        eproducaoRelativa.textContent = "Meta atingida, a eficiencia foi de " + producaoRelativa + "%" 
         eproducaoRelativa.classList = "green"
     }
     else
     {
+        eproducaoRelativa.textContent = "Meta nao atingida, a eficiencia foi de " + producaoRelativa  + "%"
         eproducaoRelativa.classList = "red"
+    }
+    if (!eMeta.value)
+    {
+        eproducaoRelativa.textContent = "Sem meta"
     }
 }
 
@@ -165,3 +172,4 @@ function metaConfere()
         }
         
     }
+
