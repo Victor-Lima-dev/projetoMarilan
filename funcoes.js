@@ -1,40 +1,16 @@
-const eVelocidadeMinutoT = document.querySelector("#mVelocidadeMinutoT")
-const eVelocidadeHoraT = document.querySelector("#mVelocidadeHoraT")
-const ebtnGerarTurno = document.querySelector("#btnGerarTurno")
-const ehistoricoProducao = document.querySelector(".historicoProducao")
-const ehistoricoProducaoReal = document.querySelector(".historicoProducaoReal")
-const eproducaoDia = document.querySelector(".producaoDia")
-const eproducaoDiaReal = document.querySelector(".producaoDiaReal")
-const eproducaoRelativa = document.querySelector(".producaoRelativa")
-const eMeta = document.querySelector(".meta")
-
-let somaTurno = 0
-let somaTurnoReal = 0
-let item
-let contadorItem
-let contadorItemArray
-
-let relatorioFeito = false
-
-let textoItem
-let registroH = 0
-
+//Funções de produtividade, que pegam os inputs e os utilizam dependendo de qual esta preenchido
+//Talvez poderia ser um switch(estudar)
 function produtividadePM(x) {
     let producao = x * 60
     return producao
 }
-
 function produtividadePH(x) {
     var producao = x / 60
     return producao
 }
 
-eVelocidadeMinutoT.addEventListener("change", mudancaPM)
-eVelocidadeHoraT.addEventListener("change", mudancaPH)
-ebtnGerarTurno.addEventListener("click", confereTurno)
 
-
-
+//Funçoes que executam a produtividade e modificam o dom, aqui também poderia ser um switch
 function mudancaPM() {
     eVelocidadeHoraT.value = produtividadePM(eVelocidadeMinutoT.value)
 }
@@ -43,26 +19,10 @@ function mudancaPH() {
     eVelocidadeMinutoT.value = produtividadePH(eVelocidadeHoraT.value)
 }
 
-function confereTurno() {
-    if (relatorioFeito === false) {
-        gerarTurno()
-        gerarTurnoReal()
-        gerarProdutividadeRelativa()
 
-
-    }
-    else {
-
-        relatorioFeito = true
-        for (var i = contadorItem.length - 1; i >= 0; i--) {
-            contadorItem[i].remove()
-        }
-        gerarTurno()
-        gerarTurnoReal()
-        gerarProdutividadeRelativa()
-    }
-}
-
+//Essa função gera os valores do lado ideal, portanto sem nenhum evento aleatorio e também
+//cria os itens novos no html, usa o for para executar pelo menos 8 vezes, também fornece
+//dados para a funçao de gerar a soma total do turno.
 function gerarTurno() {
     relatorioFeito = true
     for (let i = 0; i < 8; i++) {
@@ -70,8 +30,6 @@ function gerarTurno() {
 
         somaTurno += registroH
         eproducaoDia.textContent = somaTurno
-
-        interA = registroH
 
         item = document.createElement("li")
         item.classList = "listaHora"
@@ -86,7 +44,9 @@ function gerarTurno() {
 
 }
 
-
+// Função que gera dados com simulação de paradas, portanto ela dispara o gerar parada
+// também dispara o checarParada que vai verificar a parada e rodar o coeficiente de parada
+// por fim ele vai gerar a lista com os dados modificados pelo coeficiente
 function gerarTurnoReal() {
     relatorioFeito = true
     for (let i = 1; i < 9; i++) {
@@ -94,17 +54,18 @@ function gerarTurnoReal() {
         checarParada()
       
     }
+    //Essa variavel é utilizada na hora de verificar se já existe uma lista ou não, caso
+    // exista a propriedade letngh será >1, portanto será preciso limpar esses campos
+    // para nao gerar listas infinitas
     contadorItem = document.querySelectorAll(".listaHora")
 
 }
 
 
-let parada = 0
-let parou = false
-
+//Funçao que gera o evento de parada a partir da biblioteca de matemática do js
+// solta um valor booleano que vai ser utilizado pelo checarParada
 function gerarParada() {
     parada = Math.floor(Math.random() * 2 + 1)
-
 
     if (parada > 1) {
         console.log("parou")
@@ -116,6 +77,9 @@ function gerarParada() {
     }
 }
 
+//Essa função que roda depois do gerarParada vai pegar o booleano parou e vai dependendo dele
+// gerar um coeficiente aleatório que irá afetar o valor do item da lista ou se ele vai usar um
+// que já está predefinino
 function checarParada() {
     if (parou === true) {
         gerarCoeficienteEficiencia()
@@ -130,12 +94,15 @@ function checarParada() {
 
 }
 
+//Função que gera o coeficiente aleatório que é usado para modificar o valor do item criado
 let coeficiente = 0
 function gerarCoeficienteEficiencia() {
     coeficiente = Math.random().toFixed(2)
 }
 
 
+//Essa função gera os elementos no hmtl e também injeta os valores nela, fornece dados
+// para a função que irá calcular a soma total dos itens
 function gerarLista() {
 
     somaTurnoReal += registroH
@@ -143,6 +110,7 @@ function gerarLista() {
 
     interB = registroH
 
+    //Rotina de Criação de um elemento que também coloca uma classe nele
     item = document.createElement("li")
     item.classList = "listaHora"
     textoItem = document.createTextNode(registroH)
@@ -152,8 +120,10 @@ function gerarLista() {
     registroH = 0
 }
 
-let producaoRelativa = 0
+//Função que calcula, a partir da soma totais das duas listas, o grau de eficiencia
+// Também roda o metaConfere que compara a eficiencia com a meta
 
+let producaoRelativa = 0
 function gerarProdutividadeRelativa() {
     producaoRelativa = somaTurnoReal / somaTurno
     eproducaoRelativa.textContent = producaoRelativa
@@ -162,6 +132,10 @@ function gerarProdutividadeRelativa() {
     metaConfere()
 }
 
+
+//Função que compara o valor do input meta e os compara, dependendo do resultado ele vai
+// setar uma classe que irá modificar a cor do elemento, afim de indicar se a meta foi
+// atendida ou não
 function metaConfere()
 {
     if (producaoRelativa >= eMeta.value / 100)
