@@ -10,28 +10,29 @@
 <body>
     <div class="container">
         <header>
-            <h1>Produtividade</h1>
+            <h1>Maquina</h1>
+            <h2>Produção</h2>
         </header>
         <section>
-            <h2>Maquina Transparente</h2>
-            <p>Qual a meta?</p>
-            <input type="number" min="0" max="1" step="0.1"  class="meta" required>
-            <p>Qual a velocidade por minuto?</p>
-                    <input id="mVelocidadeMinutoT"type="number"></input>
-            <p>Desse modo a produção por hora é</p>
-                    <input id="mVelocidadeHoraT" type="number"></input>
-            <button id="btnGerarTurno">Gerar um turno</button>
+            <div class="blocoInput">
+                <p>Qual a meta?</p>
+                <input type="number" min="0" max="1" step="0.1"  class="meta" required>
+                <p>Qual a velocidade por minuto?</p>
+                        <input id="mVelocidadeMinutoT"type="number"></input>
+                <p>Desse modo a produção por hora é</p>
+                        <input id="mVelocidadeHoraT" type="number"></input>
+                        <button id="btnGerarTurno">Gerar um turno</button>
+            </div>
             <div class="producao">
-                <div>
+                <div class="soma">
                     <ul class="historicoProducao">Produção Ideal</ul>
                     <p class="producaoDia"></p>
                 </div>
-                <div>
+                <div class="soma">
                     <ul class="historicoProducaoReal">Produção Real</ul>
                     <p class="producaoDiaReal"></p>
                 </div>
             </div>
-            <ul class="producaoHora"></ul>
             <p class="producaoRelativa"></p>
         </section>
     </div>
