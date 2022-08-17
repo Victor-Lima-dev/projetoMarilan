@@ -1,0 +1,18 @@
+body
+{
+    background-color: #594E45;
+    color: #E1523D;
+}
+
+button
+{
+    background-color: #E1523D !important;
+    border: 1px solid #E1523D !important;
+}
+
+
+.header
+{
+    background-color: white;
+}
+
