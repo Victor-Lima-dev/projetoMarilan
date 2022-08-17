@@ -31,8 +31,8 @@ function criarColuna() {
     coluna.classList = "item"
 
     textoColuna = document.createTextNode(horas)
-    
-    
+
+
     coluna.appendChild(textoColuna)
     eTr.appendChild(coluna)
 }
@@ -87,7 +87,7 @@ function linha() {
 
 }
 let intermediario = 0
-let metaDesejada = 0.1
+
 
 function grauEficiencia() {
     registroH = real / ideal
@@ -103,7 +103,7 @@ function verificacao() {
             verificador[i].remove()
         }
         relatorioFeito = false
-
+        horas = 0
         linha()
     }
     else {
@@ -132,4 +132,17 @@ function checarParada() {
         coeficiente = 1
     }
 
+}
+
+const metaDesejada = document.querySelector(".inputRange")
+const campoMeta = document.querySelector(".campoMeta")
+
+
+metaDesejada.addEventListener("change",metaChange)
+
+campoMeta.textContent = metaDesejada.value + "%"
+function metaChange() 
+{
+
+    campoMeta.textContent = metaDesejada.value + "%"
 }
