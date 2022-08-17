@@ -3,6 +3,7 @@ const eVelocidadeMinutoT = document.querySelector("#mVelocidadeMinutoT")
 const eVelocidadeHoraT = document.querySelector("#mVelocidadeHoraT")
 
 
+
 const ebtnGerarTurno = document.querySelector("#btnGerarTurno")
 
 //São as tabelas que estao sendo geradas
