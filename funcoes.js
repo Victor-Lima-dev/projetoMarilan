@@ -173,6 +173,7 @@ function metaConfere()
         
     }
 
+    //Função que verifica se os campos estão preenchidos
 function verificaInputs()
 {
     if (!eMeta.value === true || !eVelocidadeHoraT.value === true || !eVelocidadeMinutoT. value === true)
