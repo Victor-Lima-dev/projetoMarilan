@@ -54,6 +54,9 @@ let tabelaFeita = false
 
 let verificador2
 
+let totalReal = 0
+
+
 function linha() {
     for (let i = 0; i < 8; i++) {
 
@@ -72,13 +75,16 @@ function linha() {
         checarParada()
         registroH = produtividadePM(eVelocidadeMinutoT.value)
         registroH = registroH * coeficiente
-        tabela()
         real = registroH
+        totalReal += registroH
+        tabela()
+       
+    
         registroH = 0
 
         grauEficiencia()
+        eficienciaConfere()
         tabela()
-
         registroH = 0
         real = 0
         ideal = 0
@@ -86,7 +92,7 @@ function linha() {
     verificador = document.querySelectorAll(".item")
 
 }
-let intermediario = 0
+
 
 
 function grauEficiencia() {
@@ -104,6 +110,7 @@ function verificacao() {
         }
         relatorioFeito = false
         horas = 0
+        totalReal = 0
         linha()
     }
     else {
@@ -136,13 +143,24 @@ function checarParada() {
 
 const metaDesejada = document.querySelector(".inputRange")
 const campoMeta = document.querySelector(".campoMeta")
-
+const producaoDia = document.querySelector(".producaoDia")
 
 metaDesejada.addEventListener("change",metaChange)
 
 campoMeta.textContent = metaDesejada.value + "%"
+
 function metaChange() 
 {
-
     campoMeta.textContent = metaDesejada.value + "%"
 }
+
+let totalIdeal = 0
+let grauProdutividade = 0
+
+function eficienciaConfere()
+{
+    totalIdeal = eVelocidadeHoraT.value * 8
+    grauProdutividade = totalReal / totalIdeal
+    producaoDia.textContent = grauProdutividade
+}
+
